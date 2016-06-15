@@ -1,0 +1,34 @@
+<div class="yk-selectize-control form-control multi"
+     (mouseenter)="onMouseEnter()"
+     (mouseleave)="onMouseLeave()"
+     (click)="onSelectInputClick()">
+    <div class="yk-selectize-input">
+        <div class="item"
+             *ngFor="let selectedItem of selectedItems">
+            {{ selectedItem }}
+            <a class="remove" (click)="deselect(selectedItem)" >x</a>
+        </div>
+        <input type="text"
+               autocomplete="off"
+               #selectInput
+               [(ngModel)]="newItem"
+               (blur)="onSelectInputBlur()"
+               (keyup)="search()">
+    </div>
+    <div class="yk-selectize-dropdown form-control"
+         (click)="onSelectInputClick()"
+         [class.yk-selectize-dropdown-active]="checkDropdownActive()">
+        <div class="yk-selectize-dropdown-content">
+            <div class="create selectable"
+                 *ngIf="newItem"
+                 (click)="addNewItem()">
+                Add <strong>{{ newItem }}</strong>...
+            </div>
+            <div class="option selectable"
+                 *ngFor="let item of filteredItems"
+                 (click)="select(item)">
+                {{ item }}
+            </div>
+        </div>
+    </div>
+</div>
